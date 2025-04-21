@@ -16,6 +16,8 @@ import menu_5 from './imgs/menu-5.jpg'
 import menu_6 from './imgs/menu-6.jpg'
 import menu_7 from './imgs/menu-7.jpg'
 import menu_8 from './imgs/menu-8.jpg'
+import app_store from './imgs/app-store.png'
+import gg_play from './imgs/gg-play.png'
 
 export const assets = {
     food_1,
@@ -36,6 +38,8 @@ export const assets = {
     menu_6,
     menu_7,
     menu_8,
+    app_store,
+    gg_play,
 };
 
 export const menu_list = [

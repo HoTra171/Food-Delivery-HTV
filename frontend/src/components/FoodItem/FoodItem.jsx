@@ -32,7 +32,7 @@ const FoodItem = ({id, name,price,description,image}) => {
             <StarRating />
         </div>
         <p className="food-item-desc">{description}</p>
-        <p className="food-item-price">{price} Nghìn Đồng</p>
+        <p className="food-item-price">{price} Đồng</p>
       </div>
     </div>
   )

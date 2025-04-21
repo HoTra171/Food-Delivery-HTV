@@ -86,7 +86,6 @@
     visibility: visible;
 }
 
-
 .food-item-counter{
     position: absolute;
     bottom: 15px;
@@ -99,3 +98,10 @@
     border-radius: 50px;
     background-color: tomato;
 }
+
+@media (max-width: 1024px) {
+    .food-item-img-container .add {
+        visibility: visible;
+    }
+}
+

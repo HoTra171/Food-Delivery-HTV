@@ -23,7 +23,7 @@
 .header-contents h2{
     font-weight: 500;
     color: #fff;
-    font-size: max(4.5vw, 22px);
+    font-size: max(4.5vw, 16px);
 }
 
 .header-contents p{
@@ -38,6 +38,25 @@
     padding: 1vw 2.3vw;
     line-height: calc(1.3vw);
     background-color: #fff;
-    font-size: max(1vw, 13px);
+    font-size: max(1vw, 12px);
     border-radius: 50px;
 }
+
+@media (max-width: 1050px) {
+    .header-contents{
+        max-width: 50%;
+    }
+}
+
+@media (max-width: 750px) {
+    .header-contents{
+        max-width: 55%;
+    }
+    .header-contents p{
+        display: none;
+    }
+    .header-contents button{
+        padding: 2vw 4vw;
+    }
+}
+
