@@ -71,43 +71,43 @@ export const menu_list = [
         menu_name: "Mỳ ý",
         menu_image: menu_8
     },
-] 
+]
 
 export const food_list = [
     {
-      "_id": "1",
-      "name": "Bánh mì thịt nướng",
-      "image": food_1,
-      "price": 25000,
-      "description": "Bánh mì giòn rụm kẹp thịt nướng thơm lừng, ăn kèm rau sống, dưa leo và nước sốt đậm đà.",
-      "category": "Đồ ăn nhanh"
+        "id": "1",
+        "name": "Bánh mì thịt nướng",
+        "image": food_1,
+        "price": 25000,
+        "description": "Bánh mì giòn rụm kẹp thịt nướng thơm lừng, ăn kèm rau sống, dưa leo và nước sốt đậm đà.",
+        "category": "Đồ ăn nhanh"
     },
     {
-      "_id": "2",
-      "name": "Bánh cuốn",
-      "image": food_2,
-      "price": 40000,
-      "description": "Bánh cuốn mềm mịn, cuộn nhân thịt và mộc nhĩ, ăn kèm chả quế và nước mắm pha chua ngọt.",
-      "category": "Phở"
+        "id": "2",
+        "name": "Bánh cuốn",
+        "image": food_2,
+        "price": 40000,
+        "description": "Bánh cuốn mềm mịn, cuộn nhân thịt và mộc nhĩ, ăn kèm chả quế và nước mắm pha chua ngọt.",
+        "category": "Phở"
     },
     {
-      "_id": "3",
-      "name": "Phở bò đặc biệt",
-      "image": food_3,
-      "price": 60000,
-      "description": "Phở truyền thống với nước dùng đậm đà và thịt bò mềm mại.",
-      "category": "Phở"
+        "id": "3",
+        "name": "Phở bò đặc biệt",
+        "image": food_3,
+        "price": 60000,
+        "description": "Phở truyền thống với nước dùng đậm đà và thịt bò mềm mại.",
+        "category": "Phở"
     },
     {
-      "_id": "4",
-      "name": "Bún riêu cua",
-      "image": food_4,
-      "price": 50000,
-      "description": "Bún riêu cua đậm đà với nước dùng chua nhẹ, riêu cua thơm béo, ăn kèm đậu hũ chiên, cà chua và rau sống.",
-      "category": "Phở"
+        "id": "4",
+        "name": "Bún riêu cua",
+        "image": food_4,
+        "price": 50000,
+        "description": "Bún riêu cua đậm đà với nước dùng chua nhẹ, riêu cua thơm béo, ăn kèm đậu hũ chiên, cà chua và rau sống.",
+        "category": "Phở"
     },
     {
-        "_id": "5",
+        "id": "5",
         "name": "Bún chả Hà Nội",
         "image": food_5,
         "price": 55000,
@@ -115,28 +115,27 @@ export const food_list = [
         "category": "Phở"
     },
     {
-      "_id": "6",
-      "name": "Bánh bao",
-      "image": food_6,
-      "price": 25000,
-      "description": "Bánh bao nóng hổi, vỏ mềm, nhân thịt trứng cút đậm đà, thích hợp cho bữa sáng nhanh gọn mà đầy đủ năng lượng.",
-      "category": "Đồ ăn nhanh"
+        "id": "6",
+        "name": "Bánh bao",
+        "image": food_6,
+        "price": 25000,
+        "description": "Bánh bao nóng hổi, vỏ mềm, nhân thịt trứng cút đậm đà, thích hợp cho bữa sáng nhanh gọn mà đầy đủ năng lượng.",
+        "category": "Đồ ăn nhanh"
     },
     {
-      "_id": "7",
-      "name": "Bún bò Huế",
-      "image": food_7,
-      "price": 50000,
-      "description": "Bún bò Huế cay nồng, nước dùng đậm vị sả, bò mềm thơm, ăn kèm rau sống và chanh ớt chuẩn vị miền Trung.",
-      "category": "Phở"
+        "id": "7",
+        "name": "Bún bò Huế",
+        "image": food_7,
+        "price": 50000,
+        "description": "Bún bò Huế cay nồng, nước dùng đậm vị sả, bò mềm thơm, ăn kèm rau sống và chanh ớt chuẩn vị miền Trung.",
+        "category": "Phở"
     },
     {
-      "_id": "8",
-      "name": "Sôi năm màu",
-      "image": food_8,
-      "price": 30000,
-      "description": "Xôi 5 màu rực rỡ từ lá và gạo nếp tự nhiên, dẻo thơm, mang đậm hương vị núi rừng và ý nghĩa ngũ hành.",
-      "category": "Đồ ăn nhanh"
+        "id": "8",
+        "name": "Sôi năm màu",
+        "image": food_8,
+        "price": 30000,
+        "description": "Xôi 5 màu rực rỡ từ lá và gạo nếp tự nhiên, dẻo thơm, mang đậm hương vị núi rừng và ý nghĩa ngũ hành.",
+        "category": "Đồ ăn nhanh"
     }
-  ]
-  
+]

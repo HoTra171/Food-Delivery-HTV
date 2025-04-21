@@ -11,8 +11,9 @@
 
 .navbar-menu {
     display: flex;
-    gap: 20px;
-    font-size: 18px;
+    gap: 35px;
+    font-size: 24px;
+    font-weight: 600;
     list-style: none;
     color: #40557e;
     justify-content: space-between;

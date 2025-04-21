@@ -43,7 +43,7 @@
     cursor: pointer;
     object-fit: cover;
     transition: 0.2s;
-    border: 2px solid #ccc;
+    border: 2px solid #3a3939;
 }
 
 .explore-menu-list-item p{
