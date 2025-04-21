@@ -1,0 +1,24 @@
+.star-rating-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    margin-left: 15px;
+}
+
+.star-rating {
+    display: flex;
+    gap: 4px;
+}
+
+.star {
+    cursor: pointer;
+    color: #d1d5db;
+    transition: color 0.2s, fill 0.2s;
+}
+
+.star-active {
+    color: #facc15;
+    fill: #facc15;
+}
+
