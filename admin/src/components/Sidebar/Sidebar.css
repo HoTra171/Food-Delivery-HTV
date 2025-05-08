@@ -25,6 +25,15 @@
     cursor: pointer;
 }
 
+.sidebar-option:hover{
+    background-color: #fff0ed;
+    border-color: rgb(155, 106, 98);
+}
+
+.sidebar-option .icon{
+    font-size: max(1.5vw, 20px);
+}
+
 @media (max-width: 900px) {
     .sidebar-option p{
         display: none;
