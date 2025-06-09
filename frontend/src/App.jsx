@@ -8,7 +8,7 @@ import Footer from './components/Footer/Footer'
 import LoginPopup from './components/LoginPopup/LoginPopup'
 import PaymentReturn from './pages/PaymentReturn/PaymentReturn'
 import MyOrders from './pages/MyOrders/MyOrders'
-
+import SearchResults from './pages/SearchResults/SearchResults'
 
 const App = () => {
 
@@ -23,9 +23,9 @@ const App = () => {
           <Route path='/' element={<Home />} />
           <Route path='/cart' element={<Cart />} />
           <Route path='/order' element={<PlaceOrder />} />
-          <Route path='/verify' element={<verify />} />
           <Route path="/payment-return" element={<PaymentReturn />} />
           <Route path="/myorders" element={<MyOrders />} />
+          <Route path="/search" element={<SearchResults />} />
         </Routes>
       </div>
       <Footer/>

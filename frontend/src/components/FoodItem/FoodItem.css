@@ -50,7 +50,7 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
-    max-height: calc(1.6em * 2); 
+    height: calc(1.6em * 2); 
     line-height: 1.6;
     font-size: 14px;
     color: #747474;

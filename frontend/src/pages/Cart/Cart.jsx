@@ -45,18 +45,18 @@ const Cart = () => {
           <h2>Cart Totals</h2>
           <div>
             <div className="cart-total-details">
-              <p>Subtotal</p>
-              <p>{getTotalCartAmount()} Đồng</p>
+              <p>Tổng tiền hàng</p>
+              <p>{getTotalCartAmount()} VNĐ</p>
             </div>
             <hr />
             <div className="cart-total-details">
-              <p>Delivery Fee</p>
-              <p>{getTotalCartAmount() === 0?0:15000} Đồng</p>
+              <p>Phí giao hàng</p>
+              <p>{getTotalCartAmount() === 0?0:15000} VNĐ</p>
             </div>
             <hr />
             <div className="cart-total-details">
-              <b>Total</b>
-              <b>{getTotalCartAmount() === 0?0:getTotalCartAmount()+15000} Đồng</b>
+              <b>Tổng</b>
+              <b>{getTotalCartAmount() === 0?0:getTotalCartAmount()+15000} VNĐ</b>
             </div>
           </div>
           <button onClick={() => navigate('/order')}>PROCEED TO CHECKOUT</button>

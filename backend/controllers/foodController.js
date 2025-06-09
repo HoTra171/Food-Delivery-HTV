@@ -17,6 +17,7 @@ const addFood = async (req, res) => {
         await food.save()
         res.json({success:true, message:"Food Added"})
     } catch(error){
+        console.log("CATEGORY:", req.body.category)
         console.log(error)
         res.json({success: false, message:"Error"})
     }
@@ -49,5 +50,32 @@ const removeFood = async (req, res) =>{
     }
 }
 
+//update food item
+const updateFood = async (req, res) => {
+    try {
+    const { id, name, category, description, price } = req.body;
 
-export {addFood, listFood, removeFood}
+    if (!id) {
+      return res.json({ success: false, error: 'Missing food id' });
+    }
+
+    // Tìm và cập nhật
+    const updatedFood = await foodModel.findByIdAndUpdate(
+      id,
+      { name, category, description, price },
+      { new: true }
+    );
+
+    if (!updatedFood) {
+      return res.json({ success: false, error: 'Food not found' });
+    }
+
+    res.json({ success: true, message: 'Food updated successfully', data: updatedFood });
+  } catch (error) {
+    console.error(error);
+    res.json({ success: false, error: 'Server error' });
+  }
+} 
+
+
+export {addFood, listFood, removeFood, updateFood}

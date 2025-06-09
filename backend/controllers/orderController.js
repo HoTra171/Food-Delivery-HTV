@@ -84,7 +84,7 @@ const placeOrder = async (req, res) => {
         // Bước 3: Gắn hash vào URL
         vnp_Params['vnp_SecureHash'] = signed;
         let payment_url = vnpUrl + '?' + qs.stringify(vnp_Params, { encode: false });
-        
+
         res.json({ success: true, payment_url: payment_url })
     }
     catch (error) {
@@ -94,23 +94,23 @@ const placeOrder = async (req, res) => {
 }
 
 const verifyOrder = (req, res) => {
-  let vnp_Params = { ...req.body };
-  let secureHash = vnp_Params.vnp_SecureHash;
+    let vnp_Params = { ...req.body };
+    let secureHash = vnp_Params.vnp_SecureHash;
 
-  delete vnp_Params.vnp_SecureHash;
-  delete vnp_Params.vnp_SecureHashType;
+    delete vnp_Params.vnp_SecureHash;
+    delete vnp_Params.vnp_SecureHashType;
 
-  vnp_Params = sortObject(vnp_Params);
-  const signData = qs.stringify(vnp_Params, { encode: false });
-  const hmac = crypto.createHmac("sha512", process.env.VNP_HASHSECRET);
-  const signed = hmac.update(Buffer.from(signData, "utf-8")).digest("hex");
+    vnp_Params = sortObject(vnp_Params);
+    const signData = qs.stringify(vnp_Params, { encode: false });
+    const hmac = crypto.createHmac("sha512", process.env.VNP_HASHSECRET);
+    const signed = hmac.update(Buffer.from(signData, "utf-8")).digest("hex");
 
-  if (secureHash === signed && vnp_Params.vnp_ResponseCode === "00") {
-    // Có thể cập nhật trạng thái đơn hàng tại đây
-    return res.json({ success: true });
-  } else {
-    return res.json({ success: false });
-  }
+    if (secureHash === signed && vnp_Params.vnp_ResponseCode === "00") {
+        // Có thể cập nhật trạng thái đơn hàng tại đây
+        return res.json({ success: true });
+    } else {
+        return res.json({ success: false });
+    }
 };
 
 const userOrders = async (req, res) => {
@@ -125,7 +125,7 @@ const userOrders = async (req, res) => {
 
 // listing orders for admin panel
 const listOrders = async (req, res) => {
-    try{
+    try {
         const orders = await orderModel.find({});
         res.json({ success: true, data: orders });
     }
@@ -146,4 +146,43 @@ const updateStatus = async (req, res) => {
     }
 }
 
-export { placeOrder, verifyOrder, userOrders, listOrders,updateStatus }
+// api reports revenue
+const reportsRevenue = async (req, res) => {
+    console.log("Thống kê doanh thu từ", req.query.startDate, "đến", req.query.endDate);
+    const { startDate, endDate } = req.query;
+
+    if (!startDate || !endDate) {
+        return res.status(400).json({ error: 'Vui lòng cung cấp startDate và endDate' });
+    }
+
+    try {
+        const revenueData = await orderModel.aggregate([
+            {
+                $match: {
+                    date: {
+                        $gte: new Date(startDate),
+                        $lte: new Date(endDate)
+                    },
+                    status: 'Delivered'
+                }
+            },
+            {
+                $group: {
+                    _id: { $dateToString: { format: "%Y-%m-%d", date: "$date" } },
+                    totalRevenue: { $sum: "$amount" },
+                    countOrders: { $sum: 1 }
+                }
+            },
+            {
+                $sort: { _id: 1 }
+            }
+        ]);
+
+        res.json(revenueData);
+    } catch (err) {
+        console.error("Lỗi khi thống kê doanh thu:", err);
+        res.status(500).json({ error: 'Lỗi server khi thống kê doanh thu' });
+    }
+};
+
+export { placeOrder, verifyOrder, userOrders, listOrders, updateStatus, reportsRevenue };

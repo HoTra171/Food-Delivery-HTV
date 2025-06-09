@@ -5,9 +5,7 @@ import './Orders.css'
 import { assets } from '../../../../frontend/src/assets/assets'
 
 const Orders = ({ url }) => {
-
   const [orders, setOrders] = useState([])
-
   const fetchAllOrders = async () => {
     const response = await axios.get(url + '/api/order/list')
     console.log(response.data)
@@ -65,7 +63,7 @@ const Orders = ({ url }) => {
             <select onChange={(e)=>statusHandler(e, order._id)}value={order.status}>
               <option value="Food Processing">Food Processing</option>
               <option value="Out for delivery">Out for delivery</option>
-              <option value="Delivery">Delivered</option>
+              <option value="Delivered">Delivered</option>
             </select>
 
           </div>

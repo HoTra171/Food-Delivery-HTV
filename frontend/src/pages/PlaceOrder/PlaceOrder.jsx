@@ -64,9 +64,10 @@ const PlaceOrder = () => {
 useEffect(() => {
   if(!token){
     navigate('/cart')
+    alert("Bạn chưa đăng nhập. Vui lòng đăng nhập trước khi đặt hàng.")
   }
   else if (getTotalCartAmount() === 0) {
-    alert("Giỏ hàng của bạn đang trống. Vui lòng thêm sản phẩm trước khi đặt hàng.");
+    alert("Giỏ hàng của bạn đang trống. Vui lòng thêm sản phẩm trước khi đặt hàng.")
     navigate('/cart')
   }
 },[token])
@@ -97,18 +98,18 @@ return (
         <h2>Cart Totals</h2>
         <div>
           <div className="cart-total-details">
-            <p>Subtotal</p>
-            <p>{getTotalCartAmount()} Đồng</p>
+            <p>Tổng tiền hàng</p>
+            <p>{getTotalCartAmount()} VNĐ</p>
           </div>
           <hr />
           <div className="cart-total-details">
-            <p>Delivery Fee</p>
-            <p>{getTotalCartAmount() === 0 ? 0 : 15000} Đồng</p>
+            <p>Phí giao hàng</p>
+            <p>{getTotalCartAmount() === 0 ? 0 : 15000} VNĐ</p>
           </div>
           <hr />
           <div className="cart-total-details">
-            <b>Total</b>
-            <b>{getTotalCartAmount() === 0 ? 0 : getTotalCartAmount() + 15000} Đồng</b>
+            <b>Tổng</b>
+            <b>{getTotalCartAmount() === 0 ? 0 : getTotalCartAmount() + 15000} VNĐ</b>
           </div>
         </div>
         <button type='submit'>PROCEED TO PAYMENT</button>

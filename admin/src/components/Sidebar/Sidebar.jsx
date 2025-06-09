@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCirclePlus } from '@fortawesome/free-solid-svg-icons'
 import { faRectangleList } from '@fortawesome/free-solid-svg-icons'
 import { faTableList } from '@fortawesome/free-solid-svg-icons'
+import { faSquarePollHorizontal } from '@fortawesome/free-solid-svg-icons'
 import { NavLink } from 'react-router-dom'
 
 const Sidebar = () => {
@@ -21,6 +22,10 @@ const Sidebar = () => {
             <NavLink to='orders' className="sidebar-option">
                 <FontAwesomeIcon icon={faTableList} className='icon'/>
                 <p>Orders</p>
+            </NavLink>
+            <NavLink to='reports' className="sidebar-option">
+                <FontAwesomeIcon icon={faSquarePollHorizontal} className='icon'/>
+                <p>RevenueReport</p>
             </NavLink>
         </div>
       </div>
