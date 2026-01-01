@@ -14,6 +14,7 @@ const Add = ({url}) => {
         description: "",
         price: "",
         category: "Salad",
+        thoihansudung: "",
     })
 
     const onChangeHandler = (e) => {
@@ -30,15 +31,19 @@ const Add = ({url}) => {
         formData.append("price", Number(data.price))
         formData.append("category", data.category)
         formData.append("image", image)
+        formData.append("thoihansudung", data.thoihansudung)
         const response = await axios.post(`${url}/api/food/add`, formData)
+        console.log(response.data);
         if(response.data.success) {
             setData({
                 name: "", 
                 description: "",
                 price: "",
                 category: "Salad",
+                thoihansudung: "",
             })
             setImage(false)
+            console.log(response.data)
             toast.success(response.data.message)
         } else {
             toast.error(response.data.message)
@@ -80,6 +85,10 @@ const Add = ({url}) => {
                     <div className="add-price flex-col">
                         <p>Product price</p>
                         <input onChange={onChangeHandler} value={data.price} type="number" name="price" placeholder='20000 VNĐ' />
+                    </div>
+                    <div className="add-thoihansudung">
+                        <p>Thời hạn sử dụng</p>
+                        <input type="date" onChange={onChangeHandler} name='thoihansudung' value={data.thoihansudung} />
                     </div>
                 </div>
                 <button type='submit' className="add-btn">ADD</button>

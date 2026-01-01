@@ -14,11 +14,14 @@ dotenv.config();
 
 // app config 
 const app = express()
-const port = 4000
+const port = process.env.PORT || 4000
 
 // middleware 
 app.use(express.json())
-app.use(cors())
+app.use(cors({
+    origin: true, // Allow all origins in development, configure specific domains in production
+    credentials: true
+}))
 
 // db connection
 connectDB()
@@ -31,11 +34,11 @@ app.use("/api/cart", cartRouter)
 app.use("/api/order", orderRouter)
 
 
-app.get("/",(req,res)=>{
+app.get("/", (req, res) => {
     res.send("API working")
 })
 
-app.listen(port,()=>{
+app.listen(port, () => {
     console.log(`Server Started on http://localhost:${port}`)
 })
 

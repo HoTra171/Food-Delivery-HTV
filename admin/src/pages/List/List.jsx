@@ -11,15 +11,17 @@ const List = ({ url }) => {
     name: '',
     category: '',
     description: '',
-    price: ''
-  });
+    price: '',
+    thoihansudung: '',
+    });
   const startEdit = (item) => {
     setEditingId(item._id);
     setEditData({
       name: item.name,
       category: item.category,
       description: item.description,
-      price: item.price
+      price: item.price,
+      thoihansudung: item.thoihansudung,
     });
   };
 
@@ -76,6 +78,7 @@ const List = ({ url }) => {
           <b>Category</b>
           <b>Description</b>
           <b>Price</b>
+          <b>Thời hạn sử dụng</b> 
           <b>Action</b>
         </div>
         {list.map((item, index) => (
@@ -130,6 +133,7 @@ const List = ({ url }) => {
                 ) : (
                   <p>{item.price}</p>
                 )}
+                <p>{item.thoihansudung}</p>
 
                 <div className="list-table-format-action">
                   {editingId === item._id ? (
