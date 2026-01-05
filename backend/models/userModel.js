@@ -5,6 +5,7 @@ const userSchema = new mongoose.Schema({
     email: {type: String, required: true, unique: true},
     password: {type: String, required: true},
     cartData: {type: Object, default: {}},
+    role: {type: String, enum: ['user', 'admin'], default: 'user'},
 },{minimize: false})
 
 export const userModel = mongoose.models.user || mongoose.model("user", userSchema)

@@ -37,10 +37,10 @@ const placeOrder = async (req, res) => {
         await newOrder.save()
         // Don't clear cart yet - wait for payment verification
 
-        let tmnCode = process.env.VNPAY_TMN_CODE;
-        let secretKey = process.env.VNPAY_HASH_SECRET;
-        let vnpUrl = process.env.VNPAY_URL;
-        let returnUrl = process.env.VNPAY_RETURN_URL;
+        let tmnCode = process.env.VNP_TMNCODE;
+        let secretKey = process.env.VNP_HASHSECRET;
+        let vnpUrl = process.env.VNP_URL;
+        let returnUrl = process.env.VNP_RETURN_URL;
 
         let date = new Date();
         let createDate = moment(date).format('YYYYMMDDHHmmss');
@@ -85,11 +85,11 @@ const placeOrder = async (req, res) => {
         vnp_Params['vnp_SecureHash'] = signed;
         let payment_url = vnpUrl + '?' + qs.stringify(vnp_Params, { encode: false });
 
-        res.json({ success: true, payment_url: payment_url })
+        res.status(200).json({ success: true, payment_url: payment_url })
     }
     catch (error) {
         console.error("Error placing order:", error);
-        res.json({ success: false, message: "Internal server error" });
+        res.status(500).json({ success: false, message: "Internal server error" });
     }
 }
 
@@ -103,7 +103,7 @@ const verifyOrder = async (req, res) => {
 
         vnp_Params = sortObject(vnp_Params);
         const signData = qs.stringify(vnp_Params, { encode: false });
-        const hmac = crypto.createHmac("sha512", process.env.VNPAY_HASH_SECRET);
+        const hmac = crypto.createHmac("sha512", process.env.VNP_HASHSECRET);
         const signed = hmac.update(Buffer.from(signData, "utf-8")).digest("hex");
 
         if (secureHash === signed && vnp_Params.vnp_ResponseCode === "00") {
@@ -117,26 +117,26 @@ const verifyOrder = async (req, res) => {
             if (order) {
                 // Clear cart after successful payment
                 await userModel.findByIdAndUpdate(order.userId, { cartData: {} });
-                return res.json({ success: true, message: "Payment verified successfully" });
+                return res.status(200).json({ success: true, message: "Payment verified successfully" });
             } else {
-                return res.json({ success: false, message: "Order not found" });
+                return res.status(404).json({ success: false, message: "Order not found" });
             }
         } else {
-            return res.json({ success: false, message: "Payment verification failed" });
+            return res.status(400).json({ success: false, message: "Payment verification failed" });
         }
     } catch (error) {
         console.error("Error verifying payment:", error);
-        return res.json({ success: false, message: "Internal server error" });
+        return res.status(500).json({ success: false, message: "Internal server error" });
     }
 };
 
 const userOrders = async (req, res) => {
     try {
         const orders = await orderModel.find({ userId: req.userId });
-        res.json({ success: true, data: orders });
+        res.status(200).json({ success: true, data: orders });
     } catch (error) {
         console.error(error);
-        res.json({ success: false, message: "error" });
+        res.status(500).json({ success: false, message: "Failed to fetch orders" });
     }
 }
 
@@ -144,22 +144,31 @@ const userOrders = async (req, res) => {
 const listOrders = async (req, res) => {
     try {
         const orders = await orderModel.find({});
-        res.json({ success: true, data: orders });
+        res.status(200).json({ success: true, data: orders });
     }
     catch (error) {
         console.error(error);
-        res.json({ success: false, message: "error" });
+        res.status(500).json({ success: false, message: "Failed to fetch orders" });
     }
 }
 
 // api for updating order status
 const updateStatus = async (req, res) => {
     try {
-        await orderModel.findByIdAndUpdate(req.body.orderId, { status: req.body.status });
-        res.json({ success: true, message: "Status Updated" });
+        if (!req.body.orderId || !req.body.status) {
+            return res.status(400).json({ success: false, message: "Missing orderId or status" });
+        }
+        
+        const order = await orderModel.findByIdAndUpdate(req.body.orderId, { status: req.body.status });
+        
+        if (!order) {
+            return res.status(404).json({ success: false, message: "Order not found" });
+        }
+        
+        res.status(200).json({ success: true, message: "Status Updated" });
     } catch (error) {
         console.error(error);
-        res.json({ success: false, message: "Error" });
+        res.status(500).json({ success: false, message: "Failed to update status" });
     }
 }
 

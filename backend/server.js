@@ -5,6 +5,7 @@ import foodRouter from "./routes/foodRoute.js"
 import userRouter from "./routes/userRoute.js"
 import cartRouter from "./routes/cartRoute.js"
 import orderRouter from "./routes/orderRoute.js"
+import { errorHandler } from "./middleware/errorHandler.js"
 import dotenv from "dotenv";
 
 // load bien moi truong 
@@ -18,8 +19,26 @@ const port = process.env.PORT || 4000
 
 // middleware 
 app.use(express.json())
+
+// CORS configuration for production
+const allowedOrigins = [
+    'http://localhost:5173',
+    'http://localhost:5174', 
+    'https://food-delivery-frontend-wheat.vercel.app',
+    'https://food-delivery-admin-wheat.vercel.app'
+];
+
 app.use(cors({
-    origin: true, // Allow all origins in development, configure specific domains in production
+    origin: function(origin, callback) {
+        // Allow requests with no origin (mobile apps, Postman, etc.)
+        if (!origin) return callback(null, true);
+        
+        if (allowedOrigins.indexOf(origin) !== -1 || process.env.NODE_ENV === 'development') {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
     credentials: true
 }))
 
@@ -37,6 +56,9 @@ app.use("/api/order", orderRouter)
 app.get("/", (req, res) => {
     res.send("API working")
 })
+
+// Global error handler - must be last
+app.use(errorHandler);
 
 app.listen(port, () => {
     console.log(`Server Started on http://localhost:${port}`)
