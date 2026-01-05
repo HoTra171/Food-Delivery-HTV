@@ -16,7 +16,9 @@ const PaymentReturn = () => {
 
     const verify = async () => {
       try {
-        const res = await axios.post("http://localhost:5173/api/order/verify", params);
+        const baseUrl = import.meta.env.VITE_API_URL || "http://localhost:4000";
+        const apiUrl = baseUrl.endsWith('/') ? baseUrl.slice(0, -1) : baseUrl;
+        const res = await axios.post(`${apiUrl}/api/order/verify`, params);
         if (res.data.success) {
           alert("Thanh toán thành công!");
           navigate("/myorders");

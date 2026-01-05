@@ -35,12 +35,12 @@ const placeOrder = async (req, res) => {
         });
 
         await newOrder.save()
-        await userModel.findByIdAndUpdate(req.userId, { cartData: {} })
+        // Don't clear cart yet - wait for payment verification
 
-        let tmnCode = process.env.VNP_TMNCODE;
-        let secretKey = process.env.VNP_HASHSECRET;
-        let vnpUrl = process.env.VNP_URL;
-        let returnUrl = process.env.VNP_RETURN_URL;
+        let tmnCode = process.env.VNPAY_TMN_CODE;
+        let secretKey = process.env.VNPAY_HASH_SECRET;
+        let vnpUrl = process.env.VNPAY_URL;
+        let returnUrl = process.env.VNPAY_RETURN_URL;
 
         let date = new Date();
         let createDate = moment(date).format('YYYYMMDDHHmmss');
@@ -49,7 +49,7 @@ const placeOrder = async (req, res) => {
             req.connection.remoteAddress ||
             req.socket.remoteAddress ||
             req.connection.socket.remoteAddress;
-        const orderId = moment(date).format('DDHHmmss'); // đảm bảo duy nhất
+        const orderId = newOrder._id.toString(); // Use order ID as transaction reference
         const amount = req.body.amount; // VNPAY yêu cầu VNĐ * 100
 
         const bankCode = ''; // Hoặc để trống nếu không chỉ định ngân hàng
@@ -93,23 +93,40 @@ const placeOrder = async (req, res) => {
     }
 }
 
-const verifyOrder = (req, res) => {
-    let vnp_Params = { ...req.body };
-    let secureHash = vnp_Params.vnp_SecureHash;
+const verifyOrder = async (req, res) => {
+    try {
+        let vnp_Params = { ...req.body };
+        let secureHash = vnp_Params.vnp_SecureHash;
 
-    delete vnp_Params.vnp_SecureHash;
-    delete vnp_Params.vnp_SecureHashType;
+        delete vnp_Params.vnp_SecureHash;
+        delete vnp_Params.vnp_SecureHashType;
 
-    vnp_Params = sortObject(vnp_Params);
-    const signData = qs.stringify(vnp_Params, { encode: false });
-    const hmac = crypto.createHmac("sha512", process.env.VNP_HASHSECRET);
-    const signed = hmac.update(Buffer.from(signData, "utf-8")).digest("hex");
+        vnp_Params = sortObject(vnp_Params);
+        const signData = qs.stringify(vnp_Params, { encode: false });
+        const hmac = crypto.createHmac("sha512", process.env.VNPAY_HASH_SECRET);
+        const signed = hmac.update(Buffer.from(signData, "utf-8")).digest("hex");
 
-    if (secureHash === signed && vnp_Params.vnp_ResponseCode === "00") {
-        // Có thể cập nhật trạng thái đơn hàng tại đây
-        return res.json({ success: true });
-    } else {
-        return res.json({ success: false });
+        if (secureHash === signed && vnp_Params.vnp_ResponseCode === "00") {
+            // Payment successful - update order and clear cart
+            const orderId = vnp_Params.vnp_TxnRef;
+            const order = await orderModel.findByIdAndUpdate(orderId, {
+                payment: true,
+                status: "Food Processing"
+            });
+
+            if (order) {
+                // Clear cart after successful payment
+                await userModel.findByIdAndUpdate(order.userId, { cartData: {} });
+                return res.json({ success: true, message: "Payment verified successfully" });
+            } else {
+                return res.json({ success: false, message: "Order not found" });
+            }
+        } else {
+            return res.json({ success: false, message: "Payment verification failed" });
+        }
+    } catch (error) {
+        console.error("Error verifying payment:", error);
+        return res.json({ success: false, message: "Internal server error" });
     }
 };
 
