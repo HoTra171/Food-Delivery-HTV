@@ -13,6 +13,9 @@ npm-debug.log*
 dist/
 build/
 
+# Ignore uploaded files
+uploads/
+
 
 # Local env files
 *.local
