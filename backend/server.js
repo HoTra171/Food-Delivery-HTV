@@ -22,21 +22,17 @@ const port = process.env.PORT || 4000
 app.use(express.json())
 
 // CORS configuration for production
-const allowedOrigins = [
-    'http://localhost:5173',
-    'http://localhost:5174', 
-    'https://food-delivery-frontend-wheat.vercel.app',
-    'https://food-delivery-admin-wheat.vercel.app'
-];
-
+// CORS configuration
 app.use(cors({
-    origin: function(origin, callback) {
+    origin: function (origin, callback) {
         // Allow requests with no origin (mobile apps, Postman, etc.)
         if (!origin) return callback(null, true);
-        
-        if (allowedOrigins.indexOf(origin) !== -1 || process.env.NODE_ENV === 'development') {
+
+        // Allow localhost and any vercel.app domain
+        if (origin.startsWith('http://localhost') || origin.endsWith('.vercel.app')) {
             callback(null, true);
         } else {
+            console.log("Blocked by CORS:", origin); // Log blocked origins for debugging
             callback(new Error('Not allowed by CORS'));
         }
     },
