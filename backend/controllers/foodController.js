@@ -29,11 +29,59 @@ const addFood = async (req, res) => {
 }
 
 
-// all food list
+// all food list with pagination, search, and filter
 const listFood = async (req, res) =>{
     try {
-        const foods = await foodModel.find({});
-        res.status(200).json({success: true, data:foods});
+        const {
+            page = 1,
+            limit = 12,
+            category,
+            search,
+            sortBy = 'createdAt',
+            sortOrder = 'desc'
+        } = req.query;
+
+        // Build query
+        const query = {};
+
+        if (category && category !== 'All') {
+            query.category = category;
+        }
+
+        if (search) {
+            query.$or = [
+                { name: { $regex: search, $options: 'i' } },
+                { description: { $regex: search, $options: 'i' } }
+            ];
+        }
+
+        // Calculate pagination
+        const skip = (parseInt(page) - 1) * parseInt(limit);
+
+        // Build sort object
+        const sort = {};
+        sort[sortBy] = sortOrder === 'desc' ? -1 : 1;
+
+        // Execute query with pagination
+        const foods = await foodModel
+            .find(query)
+            .sort(sort)
+            .limit(parseInt(limit))
+            .skip(skip);
+
+        // Get total count for pagination
+        const total = await foodModel.countDocuments(query);
+
+        res.status(200).json({
+            success: true,
+            data: foods,
+            pagination: {
+                total,
+                page: parseInt(page),
+                limit: parseInt(limit),
+                totalPages: Math.ceil(total / parseInt(limit))
+            }
+        });
     } catch (error) {
         console.log(error);
         res.status(500).json({success:false, message:"Failed to fetch foods"});

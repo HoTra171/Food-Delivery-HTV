@@ -14,7 +14,12 @@ const FoodItem = ({ id, name, price, description, image }) => {
   return (
     <div className='food-item'>
       <div className="food-item-img-container">
-        <img src={url + "/images/" + image} alt="" className="food-item-image" />
+        <img
+          src={url + "/images/" + image}
+          alt={name}
+          className="food-item-image"
+          loading="lazy"
+        />
         {!cartItems[id]
           ? <div className="add" onClick={() => {addToCart(id) }}>
             <FontAwesomeIcon icon={faPlus} />
@@ -32,7 +37,7 @@ const FoodItem = ({ id, name, price, description, image }) => {
           <StarRating />
         </div>
         <p className="food-item-desc">{description}</p>
-        <p className="food-item-price">{price} VNĐ</p>
+        <p className="food-item-price">{typeof price === 'number' ? price.toLocaleString() : price} VNĐ</p>
       </div>
     </div>
   )

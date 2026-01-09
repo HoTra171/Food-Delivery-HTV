@@ -2,6 +2,42 @@
     margin-top: 100px;
 }
 
+.empty-cart {
+    text-align: center;
+    padding: 80px 20px;
+    background: #f8f8f8;
+    border-radius: 12px;
+    margin: 50px auto;
+    max-width: 600px;
+}
+
+.empty-cart h2 {
+    font-size: 28px;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.empty-cart p {
+    font-size: 16px;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+.empty-cart button {
+    background-color: tomato;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.empty-cart button:hover {
+    background-color: rgb(243, 68, 37);
+}
+
 .cart-items-title{
     display: grid;
     grid-template-columns: 1fr 1.5fr 1fr 1fr 1fr 0.4fr;
@@ -29,15 +65,68 @@
     cursor: pointer;
 }
 
+/* Quantity Controls */
+.quantity-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.quantity-btn {
+    background: #f0f0f0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: #333;
+}
+
+.quantity-btn:hover {
+    background: #e0e0e0;
+    border-color: #bbb;
+}
+
+.quantity-btn:active {
+    transform: scale(0.95);
+}
+
+.quantity-value {
+    min-width: 30px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+/* Delete Button */
+.delete-btn {
+    background: transparent;
+    border: none;
+    color: #ff4444;
+    cursor: pointer;
+    font-size: 18px;
+    padding: 5px;
+    transition: all 0.3s ease;
+}
+
+.delete-btn:hover {
+    color: #cc0000;
+    transform: scale(1.2);
+}
+
 .cart-bottom{
     margin-top: 80px;
     display: flex;
-    justify-content: space-between;
-    gap: max(12vw,20px);
+    justify-content: flex-start;
 }
 
 .cart-total{
-    flex: 1;
+    max-width: 500px;
+    width: 100%;
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -67,46 +156,134 @@
     background-color: rgb(243, 68, 37);
 }
 
-.cart-promocode{
-    flex: 1;
-}
 
-.cart-promocode p{
-    color: #555;
-}
-
-.cart-promocode-input{
-    margin-top: 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #eaeaea;
-    border-radius: 4px;
-}
-
-.cart-promocode-input input{
-    background: transparent;
-    border: none;
-    outline: none;
-    padding-left: 10px;
-}
-
-.cart-promocode-input button{
-    width: max(10vw, 150px);
-    padding: 12px 5px;
-    background-color: black;
-    border: none;
-    color: white;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-@media (max-width: 750px) {
-    .cart-bottom{
-        flex-direction: column-reverse;
+@media (max-width: 768px) {
+    .cart {
+        margin-top: 80px;
     }
 
-    .cart-promocode{
-        justify-content: start;
+    .cart-items-title {
+        grid-template-columns: 0.8fr 1.5fr 0.8fr 1fr 0.8fr 0.3fr;
+        font-size: 11px;
+    }
+
+    .cart-items-item img {
+        width: 40px;
+    }
+
+    .quantity-btn {
+        width: 24px;
+        height: 24px;
+        font-size: 12px;
+    }
+
+    .quantity-value {
+        font-size: 14px;
+        min-width: 25px;
+    }
+
+    .delete-btn {
+        font-size: 16px;
+    }
+
+    .cart-bottom {
+        margin-top: 60px;
+    }
+
+    .cart-total {
+        max-width: 100%;
+    }
+
+    .cart-total button {
+        width: 100%;
+        padding: 12px;
+    }
+
+    .empty-cart {
+        padding: 60px 20px;
+    }
+
+    .empty-cart h2 {
+        font-size: 24px;
+    }
+
+    .empty-cart p {
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .cart {
+        margin-top: 70px;
+    }
+
+    .cart-items-title {
+        grid-template-columns: 0.6fr 1.3fr 0.7fr 1fr 0.7fr 0.3fr;
+        font-size: 10px;
+    }
+
+    .cart-items-item img {
+        width: 35px;
+    }
+
+    .cart-items-item {
+        font-size: 13px;
+    }
+
+    .quantity-controls {
+        gap: 5px;
+    }
+
+    .quantity-btn {
+        width: 22px;
+        height: 22px;
+        font-size: 10px;
+    }
+
+    .quantity-value {
+        font-size: 13px;
+        min-width: 20px;
+    }
+
+    .delete-btn {
+        font-size: 14px;
+    }
+
+    .cart-bottom {
+        margin-top: 50px;
+    }
+
+    .cart-total {
+        max-width: 100%;
+    }
+
+    .cart-total h2 {
+        font-size: 20px;
+    }
+
+    .cart-total-details {
+        font-size: 14px;
+    }
+
+    .cart-total button {
+        font-size: 15px;
+        padding: 10px;
+    }
+
+    .empty-cart {
+        padding: 50px 15px;
+    }
+
+    .empty-cart h2 {
+        font-size: 22px;
+    }
+
+    .empty-cart p {
+        font-size: 14px;
+    }
+
+    .empty-cart button {
+        font-size: 15px;
+        padding: 10px 25px;
     }
 }

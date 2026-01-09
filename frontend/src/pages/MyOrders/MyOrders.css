@@ -40,6 +40,25 @@
     background-color: #ffe1e1;
     cursor: pointer;
     color: #454545;
+    transition: background-color 0.3s;
+}
+
+.my-orders-order button:hover {
+    background-color: #ffd1d1;
+}
+
+.loading-state, .empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    background: #f8f8f8;
+    border-radius: 12px;
+    margin-top: 30px;
+}
+
+.loading-state p, .empty-state p {
+    font-size: 18px;
+    color: #666;
+    margin: 0;
 }
 
 @media (max-width: 900px) {
@@ -47,5 +66,73 @@
         grid-template-columns: 1fr 2fr 1fr;
         row-gap: 5px;
         font-size: 12px;
+    }
+}
+
+@media (max-width: 768px) {
+    .my-orders {
+        margin: 80px 20px 40px;
+    }
+
+    .my-orders h2 {
+        font-size: 24px;
+        text-align: center;
+    }
+
+    .my-orders-order {
+        grid-template-columns: 1fr;
+        gap: 15px;
+        padding: 20px 15px;
+        font-size: 14px;
+    }
+
+    .my-orders-order img {
+        width: 40px;
+        margin: 0 auto;
+    }
+
+    .my-orders-order p {
+        text-align: center;
+    }
+
+    .my-orders-order button {
+        width: 100%;
+        padding: 12px 20px;
+    }
+
+    .loading-state, .empty-state {
+        padding: 40px 15px;
+    }
+
+    .loading-state p, .empty-state p {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .my-orders {
+        margin: 70px 10px 30px;
+    }
+
+    .my-orders h2 {
+        font-size: 20px;
+    }
+
+    .my-orders-order {
+        padding: 15px 10px;
+        font-size: 13px;
+        gap: 12px;
+    }
+
+    .my-orders-order img {
+        width: 35px;
+    }
+
+    .loading-state, .empty-state {
+        padding: 30px 10px;
+    }
+
+    .loading-state p, .empty-state p {
+        font-size: 14px;
     }
 }

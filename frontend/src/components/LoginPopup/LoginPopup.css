@@ -78,3 +78,41 @@
     cursor: pointer;
 }
 
+@media (max-width: 480px) {
+    .login-popup-container {
+        width: 90%;
+        max-width: 340px;
+        padding: 20px 25px;
+        gap: 20px;
+        font-size: 13px;
+    }
+
+    .login-popup-title h2 {
+        font-size: 22px;
+    }
+
+    .login-popup-inputs {
+        gap: 15px;
+    }
+
+    .login-popup-inputs input {
+        padding: 8px;
+        font-size: 14px;
+    }
+
+    .login-popup-container button {
+        padding: 9px;
+        font-size: 14px;
+    }
+
+    .login-popup-condition {
+        gap: 6px;
+        margin-top: -12px;
+        font-size: 12px;
+    }
+
+    .login-popup p {
+        font-size: 13px;
+    }
+}
+

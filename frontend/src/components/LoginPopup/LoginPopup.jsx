@@ -4,6 +4,7 @@ import { faXmark } from '@fortawesome/free-solid-svg-icons'
 import './LoginPopup.css'
 import { StoreContext } from '../../context/StoreContext'
 import axios from 'axios'
+import { toast } from 'react-toastify'
 
 const LoginPopup = ({setShowLogin}) => {
 
@@ -31,15 +32,21 @@ const LoginPopup = ({setShowLogin}) => {
         newUrl += `/api/user/register`
       }
 
-      const response = await axios.post(newUrl, data)
+      try {
+        const response = await axios.post(newUrl, data)
 
-      if(response.data.success){
-        setToken(response.data.token)
-        localStorage.setItem("token", response.data.token)
-        setShowLogin(false)
-      }
-      else{
-        alert(response.data.message)
+        if(response.data.success){
+          setToken(response.data.token)
+          localStorage.setItem("token", response.data.token)
+          setShowLogin(false)
+          toast.success(currState === "Login" ? "Đăng nhập thành công!" : "Đăng ký thành công!")
+        }
+        else{
+          toast.error(response.data.message)
+        }
+      } catch (error) {
+        toast.error("Có lỗi xảy ra. Vui lòng thử lại!")
+        console.error("Login error:", error)
       }
     }
 

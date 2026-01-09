@@ -5,6 +5,7 @@ import foodRouter from "./routes/foodRoute.js"
 import userRouter from "./routes/userRoute.js"
 import cartRouter from "./routes/cartRoute.js"
 import orderRouter from "./routes/orderRoute.js"
+import voucherRouter from "./routes/voucherRoute.js"
 import { errorHandler } from "./middleware/errorHandler.js"
 import dotenv from "dotenv";
 
@@ -51,6 +52,7 @@ app.use("/images", express.static('uploads'))
 app.use("/api/user", userRouter)
 app.use("/api/cart", cartRouter)
 app.use("/api/order", orderRouter)
+app.use("/api/voucher", voucherRouter)
 
 
 app.get("/", (req, res) => {

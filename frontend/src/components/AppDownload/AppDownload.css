@@ -25,3 +25,37 @@
 .app-download-platforms img:hover{
     transform: scale(1.05);
 }
+
+@media (max-width: 768px) {
+    .app-download {
+        margin-top: 70px;
+        font-size: max(2.5vw, 18px);
+    }
+
+    .app-download-platforms {
+        gap: 15px;
+        margin-top: 30px;
+    }
+
+    .app-download-platforms img {
+        width: max(28vw, 110px);
+    }
+}
+
+@media (max-width: 480px) {
+    .app-download {
+        margin-top: 50px;
+        font-size: 16px;
+    }
+
+    .app-download-platforms {
+        gap: 10px;
+        margin-top: 25px;
+        flex-wrap: wrap;
+    }
+
+    .app-download-platforms img {
+        width: max(35vw, 100px);
+        max-width: 140px;
+    }
+}

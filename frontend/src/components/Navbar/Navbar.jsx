@@ -128,53 +128,64 @@ const Navbar = ({ setShowLogin }) => {
           }
 
           {/* Mobile Menu Button */}
-          <button className="mobile-menu-button" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+          <button
+            className="mobile-menu-button"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label={isMobileMenuOpen ? "Đóng menu" : "Mở menu"}
+            aria-expanded={isMobileMenuOpen}
+          >
             {isMobileMenuOpen ? <FontAwesomeIcon icon={faXmark} className='menu-icon' /> : <FontAwesomeIcon icon={faBars} className='menu-icon' />}
           </button>
 
           {/* Mobile Menu */}
           {isMobileMenuOpen && (
-            <div className="mobile-menu">
+            <div className="mobile-menu" role="navigation" aria-label="Menu di động">
               <div className="mobile-menu-content">
-                <a
-                  href="/"
+                <Link
+                  to="/"
                   onClick={() => {
                     setActiveMenu("home")
                     setIsMobileMenuOpen(false)
                   }}
                   className={`mobile-nav-link ${activeMenu === "home" ? "active" : ""}`}
                 >
-                  Home
-                </a>
+                  Trang chủ
+                </Link>
                 <a
                   href="#explore-menu"
-                  onClick={() => {
+                  onClick={(e) => {
+                    e.preventDefault()
                     setActiveMenu("menu")
                     setIsMobileMenuOpen(false)
+                    document.getElementById('explore-menu')?.scrollIntoView({ behavior: 'smooth' })
                   }}
                   className={`mobile-nav-link ${activeMenu === "menu" ? "active" : ""}`}
                 >
-                  Menu
+                  Thực đơn
                 </a>
                 <a
                   href="#app-download"
-                  onClick={() => {
+                  onClick={(e) => {
+                    e.preventDefault()
                     setActiveMenu("mobile-app")
                     setIsMobileMenuOpen(false)
+                    document.getElementById('app-download')?.scrollIntoView({ behavior: 'smooth' })
                   }}
                   className={`mobile-nav-link ${activeMenu === "mobile-app" ? "active" : ""}`}
                 >
-                  Mobile App
+                  Ứng dụng
                 </a>
                 <a
                   href="#footer"
-                  onClick={() => {
+                  onClick={(e) => {
+                    e.preventDefault()
                     setActiveMenu("contact-us")
                     setIsMobileMenuOpen(false)
+                    document.querySelector('.footer')?.scrollIntoView({ behavior: 'smooth' })
                   }}
                   className={`mobile-nav-link ${activeMenu === "contact-us" ? "active" : ""}`}
                 >
-                  Contact Us
+                  Liên hệ
                 </a>
               </div>
             </div>

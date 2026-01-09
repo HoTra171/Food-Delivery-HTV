@@ -252,32 +252,106 @@
 }
 
 @media (max-width: 768px) {
+    .navbar-container {
+        width: 90%;
+        padding: 8px 0px;
+    }
+
+    .navbar .logo {
+        width: 100px;
+    }
+
     .search-wrapper.expanded {
-        width: 180px;
-        
-    }
-
-    .search-input{
-        position: absolute;
-        top: 300%;
-    }
-
-    .navbar-right {
-        gap: 8px;
+        width: 200px;
     }
 
     .search-input {
-        font-size: 13px;
+        font-size: 12px;
+        padding: 6px 35px 6px 12px;
+    }
+
+    .search-button {
+        padding: 4px;
+    }
+
+    .search-icon {
+        font-size: 18px;
+    }
+
+    .navbar-right {
+        gap: 10px;
     }
 
     .btn-signIn {
         margin-top: 4px;
-        padding: 5px 10px;
-        font-size: 14px;
+        padding: 6px 12px;
+        font-size: 13px;
     }
 
     .navbar-menu {
         display: none;
+    }
+
+    .navbar-cart-icon {
+        font-size: 24px;
+    }
+
+    .nav-profile-icon {
+        font-size: 24px;
+    }
+}
+
+@media (max-width: 480px) {
+    .navbar-container {
+        width: 95%;
+        padding: 6px 0px;
+    }
+
+    .navbar .logo {
+        width: 80px;
+    }
+
+    .search-wrapper.expanded {
+        width: 150px;
+    }
+
+    .search-input {
+        font-size: 11px;
+        padding: 5px 30px 5px 10px;
+    }
+
+    .search-icon {
+        font-size: 16px;
+    }
+
+    .navbar-right {
+        gap: 6px;
+    }
+
+    .btn-signIn {
+        padding: 5px 10px;
+        font-size: 12px;
+    }
+
+    .navbar-cart-icon {
+        font-size: 20px;
+    }
+
+    .nav-profile-icon {
+        font-size: 20px;
+    }
+
+    .mobile-menu {
+        width: 90%;
+    }
+
+    .mobile-menu-content {
+        padding: 0 12px;
+        gap: 12px;
+    }
+
+    .mobile-nav-link {
+        font-size: 13px;
     }
 }
 
