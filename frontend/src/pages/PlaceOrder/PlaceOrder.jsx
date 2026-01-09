@@ -206,7 +206,7 @@ const PlaceOrder = () => {
                   onChange={(e) => setVoucherCode(e.target.value.toUpperCase())}
                   style={{
                     flex: 1,
-                    padding: '10px',
+                    padding: '5px',
                     border: '1px solid #ccc',
                     borderRadius: '4px'
                   }}

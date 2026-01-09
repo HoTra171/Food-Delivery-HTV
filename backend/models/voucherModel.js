@@ -83,11 +83,11 @@ const voucherSchema = new mongoose.Schema({
 }, { timestamps: true });
 
 // Index for faster queries
-voucherSchema.index({ code: 1 });
+
 voucherSchema.index({ isActive: 1, endDate: 1 });
 
 // Method to check if voucher is valid
-voucherSchema.methods.isValid = function(userId, orderAmount) {
+voucherSchema.methods.isValid = function (userId, orderAmount) {
     const now = new Date();
 
     // Check if active
@@ -124,7 +124,7 @@ voucherSchema.methods.isValid = function(userId, orderAmount) {
 };
 
 // Method to calculate discount
-voucherSchema.methods.calculateDiscount = function(orderAmount) {
+voucherSchema.methods.calculateDiscount = function (orderAmount) {
     if (this.discountType === 'percentage') {
         let discount = (orderAmount * this.discountValue) / 100;
         if (this.maxDiscount) {
@@ -138,7 +138,7 @@ voucherSchema.methods.calculateDiscount = function(orderAmount) {
 };
 
 // Method to mark as used
-voucherSchema.methods.markAsUsed = function(userId, orderAmount) {
+voucherSchema.methods.markAsUsed = function (userId, orderAmount) {
     this.usedCount += 1;
     this.usedBy.push({
         userId: userId,
