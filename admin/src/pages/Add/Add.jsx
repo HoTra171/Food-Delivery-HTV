@@ -1,12 +1,12 @@
 import React from 'react'
-import {useState} from 'react'
+import { useState } from 'react'
 import './Add.css'
 import { assets } from '../../assets/assets.js'
 import axios from 'axios'
 import { toast } from 'react-toastify'
 
 
-const Add = ({url}) => {
+const Add = ({ url }) => {
 
     const [image, setImage] = useState(false)
     const [data, setData] = useState({
@@ -19,7 +19,7 @@ const Add = ({url}) => {
 
     const onChangeHandler = (e) => {
         const name = e.target.name
-        const value = e.target.value    
+        const value = e.target.value
         setData((data) => ({ ...data, [name]: value }))
     }
 
@@ -32,11 +32,12 @@ const Add = ({url}) => {
         formData.append("category", data.category)
         formData.append("image", image)
         formData.append("thoihansudung", data.thoihansudung)
-        const response = await axios.post(`${url}/api/food/add`, formData)
+        const token = localStorage.getItem("token");
+        const response = await axios.post(`${url}/api/food/add`, formData, { headers: { token } })
         console.log(response.data);
-        if(response.data.success) {
+        if (response.data.success) {
             setData({
-                name: "", 
+                name: "",
                 description: "",
                 price: "",
                 category: "Salad",
@@ -56,9 +57,9 @@ const Add = ({url}) => {
                 <div className="add-img-upload flex-col">
                     <p>Upload Image</p>
                     <label htmlFor="image">
-                        <img src={image?URL.createObjectURL(image):assets.upload} alt="" />
+                        <img src={image ? URL.createObjectURL(image) : assets.upload} alt="" />
                     </label>
-                    <input onChange={(e)=> setImage(e.target.files[0])} type="file" id='image' hidden required />
+                    <input onChange={(e) => setImage(e.target.files[0])} type="file" id='image' hidden required />
                 </div>
                 <div className="add-product-name flex-col">
                     <p>Product name</p>
